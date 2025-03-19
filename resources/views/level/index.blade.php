@@ -23,7 +23,7 @@
                         <div class="col-3">
                             <select class="form-control" id="level_id" name="level_id" required>
                                 <option value="">- Semua -</option>
-                                @foreach($level as $item)
+                                @foreach ($level as $item)
                                     <option value="{{ $item->level_id }}">{{ $item->level_nama }}</option>
                                 @endforeach
                             </select>
@@ -52,7 +52,7 @@
 
 @push('js')
     <script>
-        function modalAction(url= '') {
+        function modalAction(url = '') {
             $('#myModal').load(url, function() {
                 $('#myModal').modal('show');
             });
@@ -65,35 +65,41 @@
                 ajax: {
                     "url": "{{ url('level/list') }}",
                     "dataType": "json",
-                    "type": "POST"
+                    "type": "POST",
+                    "data": function(d) {
+                        d.level_id = $('#level_id').val();
+                    }
                 },
-                columns: [
-                {
-                    data: "DT_RowIndex",
-                    className: "text-center",
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: "level_kode",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "level_nama",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                },
-                {
-                    data: "aksi",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }]
+                columns: [{
+                        data: "DT_RowIndex",
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: "level_kode",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "level_nama",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "aksi",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
             });
 
+            $('#level_id').on('change', function() {
+                dataLevel.ajax.reload();
+            });
         });
     </script>
 @endpush
