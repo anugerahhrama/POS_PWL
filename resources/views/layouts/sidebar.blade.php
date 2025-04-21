@@ -1,4 +1,20 @@
 <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <a href="{{ url('/profile') }}">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ Auth::user()->profile == null ? 'https://gerbangbelajar.id/assets/dist/user/user.png' : asset('storage/' . Auth::user()->profile) }}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="{{ url('/profile') }}" class="d-block">
+                    @if (Auth::check())
+                        {{ Auth::user()->nama }}
+                    @endif
+                </a>
+            </div>
+        </div>
+    </a>
+
     {{-- SidebarSearch Form --}}
     <div class="form-inline mt-2">
         <div class="input-group" data-widget="sidebar-search">
